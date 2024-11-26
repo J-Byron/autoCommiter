@@ -4,7 +4,7 @@ simpleGit().clean(simpleGit.CleanOptions.FORCE);
 
 // Path to the cloned repository
 const filePath =
-  process.env.NODE_ENV === "production" ? "/workspace/README.md" : "readme.md"; // Adjust path for Cloud Run or local
+  process.env.NODE_ENV === "production" ? "/workspace/readme.md" : "readme.md"; // Adjust path for Cloud Run or local
 const commitMessage = "Automated update to README.md";
 
 const REPO = "autoCommiter";

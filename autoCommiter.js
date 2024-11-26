@@ -4,15 +4,17 @@ simpleGit().clean(simpleGit.CleanOptions.FORCE);
 
 // Path to the cloned repository
 const filePath =
-  process.env.NODE_ENV === "production" ? "/workspace/README.md" : "README.md"; // Adjust path for Cloud Run or local
+  process.env.NODE_ENV === "production" ? "/workspace/README.md" : "readme.md"; // Adjust path for Cloud Run or local
 const commitMessage = "Automated update to README.md";
 
 const REPO = "autoCommiter";
 const USER = "j-byron";
-const PASS = "Amorfati2024";
-const gitHubUrl = `https://${USER}:${PASS}@github.com/${USER}/${REPO}`;
+const gitHubUrl = `https://github.com/${USER}/${REPO}`;
 
-const git = simpleGit();
+const git = simpleGit().env({
+  GIT_ASKPASS: "echo",
+  GIT_PASSWORD: process.env.GIT_PAT,
+});
 
 git
   .addConfig("user.email", "joshhbyron@gmail.com")
@@ -45,6 +47,9 @@ if (commitCount === 0) {
         .push(["-u", "origin", "main"], () =>
           console.log("Changes committed and pushed successfully!")
         );
+
+      const status = await git.status();
+      console.log("Git status:", status);
     }
   } catch (error) {
     console.error("Failed to update README.md:", error);

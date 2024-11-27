@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.21.1",
     "fs": "^0.0.1-security",
     "simple-git": "^3.27.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

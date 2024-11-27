@@ -4,7 +4,7 @@
   "description": "",
   "main": "autoCommiter.js",
   "scripts": {
-    "start": "node autoCommiter.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",

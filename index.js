@@ -1,3 +1,6 @@
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 8080;
 const fs = require("fs");
 const simpleGit = require("simple-git");
 simpleGit().clean(simpleGit.CleanOptions.FORCE);
@@ -29,8 +32,7 @@ if (commitCount === 0) {
   process.exit(0); // Exit if no commits are scheduled
 }
 
-// Main commit logic
-(async () => {
+const autoCommitFunction = async () => {
   try {
     for (let i = 0; i < commitCount; i++) {
       // Step 1: Modify the README.md file
@@ -54,4 +56,11 @@ if (commitCount === 0) {
   } catch (error) {
     console.error("Failed to update README.md:", error);
   }
-})();
+};
+
+// HTTP route to trigger your function
+app.post("/", autoCommitFunction);
+
+app.listen(port, () => {
+  console.log(`Auto Committer is listening on port ${port}`);
+});

@@ -31,11 +31,14 @@ const autoCommitFunction = async (req, res) => {
   try {
     const v = await git.version();
     const gitDirectoryExists = fs.existsSync(path.join(process.cwd(), ".git"));
-    // console.log(
-    //   `using git version ${v} in ${process.cwd()}, .git ${
-    //     gitDirectoryExists ? "found" : "not found"
-    //   } 1`
-    // );
+    console.log(
+      `using git version ${v} in ${process.cwd()}, .git ${
+        gitDirectoryExists ? "found" : "not found"
+      } 1`
+    );
+
+    console.log("github URL ->", gitHubUrl);
+    console.log("cwd ->", process.cwd());
   } catch (err) {
     res.status(500).send(`Git not available, ${err}`);
     return;
@@ -67,9 +70,7 @@ const autoCommitFunction = async (req, res) => {
         });
     }
   } catch (error) {
-    console.log("github url", gitHubUrl);
-    console.log("cwd", process.cwd());
-    res.status(500).send(`Failed to update readme.md: ${error.message}`);
+    res.status(500).send(`Failed to update readme.md, new: ${error.message}`);
     return;
   }
 

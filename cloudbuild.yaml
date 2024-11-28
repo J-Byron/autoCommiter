@@ -15,5 +15,5 @@ steps:
 
 availableSecrets:
   secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/GIT_PAT/versions/latest
+    - versionName: projects/624418733426/secrets/GIT_PAT/versions/1
       env: "GIT_PAT"

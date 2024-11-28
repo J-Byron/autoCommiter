@@ -32,7 +32,13 @@ if (commitCount === 0) {
   process.exit(0); // Exit if no commits are scheduled
 }
 
-const autoCommitFunction = async () => {
+const autoCommitFunction = async (req, res) => {
+  try {
+    await git.version();
+  } catch (err) {
+    res.status(500).send(`Git not available, ${error}`);
+  }
+
   try {
     for (let i = 0; i < commitCount; i++) {
       // Step 1: Modify the README.md file
@@ -50,11 +56,10 @@ const autoCommitFunction = async () => {
           console.log("Changes committed and pushed successfully!")
         );
 
-      const status = await git.status();
-      console.log("Git status:", status);
+      res.status(200).send("Changes committed and pushed successfully!");
     }
   } catch (error) {
-    console.error("Failed to update README.md:", error);
+    res.status(500).send(`Failed to update readme.md: ${error.message}`);
   }
 };
 

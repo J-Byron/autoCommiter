@@ -14,7 +14,7 @@ const REPO = "autoCommiter";
 const USER = "j-byron";
 const gitHubUrl = `https://github.com/${USER}/${REPO}`;
 
-const git = simpleGit().env({
+const git = simpleGit("/").env({
   GIT_ASKPASS: "echo",
   GIT_PASSWORD: process.env.GIT_PAT,
 });

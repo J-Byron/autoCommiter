@@ -13,7 +13,7 @@ const commitMessage = "Automated update to README.md";
 
 const REPO = "autoCommiter";
 const USER = "j-byron";
-const gitHubUrl = `https://github.com/${USER}/${REPO}`;
+const gitHubUrl = `https://${USER}:${process.env.GIT_PAT}@github.com/${USER}/${REPO}.git`;
 
 const git = simpleGit("/app").env({
   GIT_ASKPASS: "echo",
@@ -66,6 +66,7 @@ const autoCommitFunction = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send(`Failed to update readme.md: ${error.message}`);
+    return;
   }
 
   res.status(200).send("Changes committed and pushed successfully!");

@@ -27,7 +27,12 @@ git
 const autoCommitFunction = async (req, res) => {
   try {
     const v = await git.version();
-    console.log(`using git version ${v} in ${process.cwd()}`);
+    const gitDirectoryExists = fs.existsSync(path.join(process.cwd(), ".git"));
+    console.log(
+      `using git version ${v} in ${process.cwd()}, .git ${
+        gitDirectoryExists ? "found" : "not found"
+      } `
+    );
   } catch (err) {
     res.status(500).send(`Git not available, ${error}`);
     return;

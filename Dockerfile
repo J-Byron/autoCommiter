@@ -10,9 +10,11 @@ WORKDIR /
 # Copy your package.json and package-lock.json (if it exists) into the container
 COPY package*.json ./
 
-# Clone the Git repository into the container
-RUN git clone https://github.com/j-byron/autoCommiter.git .
+# Define build argument for GitHub Personal Access Token (PAT)
+ARG GIT_PAT
 
+# Clone the repository using the PAT for authentication
+RUN git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git .
 
 # Install the dependencies
 RUN npm install

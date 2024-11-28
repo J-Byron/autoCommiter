@@ -67,10 +67,9 @@ const autoCommitFunction = async (req, res) => {
         });
     }
   } catch (error) {
-    res.status(500).send(`Failed to update readme.md: ${error.message}`);
     console.log("github url", gitHubUrl);
     console.log("cwd", process.cwd());
-
+    res.status(500).send(`Failed to update readme.md: ${error.message}`);
     return;
   }
 

@@ -34,11 +34,8 @@ const autoCommitFunction = async (req, res) => {
     console.log(
       `using git version ${v} in ${process.cwd()}, .git ${
         gitDirectoryExists ? "found" : "not found"
-      } 1`
+      }, github URL -> ${gitHubUrl}, wd -> ${process.cwd()} `
     );
-
-    console.log("github URL ->", gitHubUrl);
-    console.log("cwd ->", process.cwd());
   } catch (err) {
     res.status(500).send(`Git not available, ${err}`);
     return;

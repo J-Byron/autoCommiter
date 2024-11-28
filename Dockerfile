@@ -14,7 +14,8 @@ COPY package*.json ./
 ARG GIT_PAT
 
 # Clone the repository using the PAT for authentication
-RUN rm -rf /workspace/* && git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git .
+RUN git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git /app
+
 
 # Install the dependencies
 RUN npm install

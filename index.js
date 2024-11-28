@@ -7,14 +7,14 @@ simpleGit().clean(simpleGit.CleanOptions.FORCE);
 
 // Path to the cloned repository
 const filePath =
-  process.env.NODE_ENV === "production" ? "/workspace/readme.md" : "readme.md"; // Adjust path for Cloud Run or local
+  process.env.NODE_ENV === "production" ? "/app/readme.md" : "readme.md"; // Adjust path for Cloud Run or local
 const commitMessage = "Automated update to README.md";
 
 const REPO = "autoCommiter";
 const USER = "j-byron";
 const gitHubUrl = `https://github.com/${USER}/${REPO}`;
 
-const git = simpleGit(process.cwd()).env({
+const git = simpleGit("/app/").env({
   GIT_ASKPASS: "echo",
   GIT_PASSWORD: process.env.GIT_PAT,
 });

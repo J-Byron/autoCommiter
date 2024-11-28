@@ -34,7 +34,7 @@ const autoCommitFunction = async (req, res) => {
       } 1`
     );
   } catch (err) {
-    res.status(500).send(`Git not available, ${error}`);
+    res.status(500).send(`Git not available, ${err}`);
     return;
   }
 

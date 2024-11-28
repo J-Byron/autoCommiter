@@ -1,0 +1,14 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "gcr.io/flash-crawler-400019/auto-committer:v1.0.0"
+      - "--build-arg"
+      - "GIT_PAT=$$GIT_PAT"
+      - "."
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/PROJECT_ID/secrets/DOCKER_PASSWORD_SECRET_NAME/versions/DOCKER_PASSWORD_SECRET_VERSION
+      env: "GIT_PAT"

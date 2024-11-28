@@ -9,6 +9,7 @@ RUN rm -rf /app
 
 # Define build argument for GitHub Personal Access Token (PAT)
 ARG GIT_PAT
+ENV GIT_PAT=$GIT_PAT
 
 # Clone the repository using the PAT for authentication
 RUN git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git /app

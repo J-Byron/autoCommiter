@@ -4,11 +4,8 @@ FROM node:16
 # Install git
 RUN apt-get update && apt-get install -y git
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy your package.json and package-lock.json (if it exists) into the container
-COPY package*.json ./
+# Remove existing /app directory if it exists
+RUN rm -rf /app
 
 # Define build argument for GitHub Personal Access Token (PAT)
 ARG GIT_PAT
@@ -16,6 +13,8 @@ ARG GIT_PAT
 # Clone the repository using the PAT for authentication
 RUN git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git /app
 
+# Set the working directory inside the container
+WORKDIR /app
 
 # Install the dependencies
 RUN npm install

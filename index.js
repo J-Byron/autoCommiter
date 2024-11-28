@@ -17,8 +17,6 @@ const REPO = "autoCommiter";
 const USER = "j-byron";
 const gitHubUrl = `https://${USER}:${process.env.GIT_PAT}@github.com/${USER}/${REPO}.git`;
 
-console.log({ gitHubUrl }, { wd: process.cwd() });
-
 const git = simpleGit(process.cwd()).env({
   GIT_ASKPASS: "echo",
   GIT_PASSWORD: process.env.GIT_PAT,
@@ -47,7 +45,7 @@ const autoCommitFunction = async (req, res) => {
   const commitCount = Math.floor(Math.random() * 6); // Random between 0 and 5
 
   if (commitCount === 0) {
-    console.log("No commits scheduled for today.");
+    res.status(200).send("No commits scheduled for today.");
     return;
   }
 
@@ -70,6 +68,9 @@ const autoCommitFunction = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send(`Failed to update readme.md: ${error.message}`);
+    console.log("github url", gitHubUrl);
+    console.log("cwd", process.cwd());
+
     return;
   }
 

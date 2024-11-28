@@ -1,6 +1,5 @@
 options:
-  logging: CLOUD_LOGGING_AND_CLOUD_STORAGE
-  logs_bucket: "gs://flash-crawler-400019-build-logs"
+  logging: CLOUD_LOGGING_ONLY
 
 steps:
   - name: "gcr.io/cloud-builders/docker"

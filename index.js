@@ -14,7 +14,7 @@ const REPO = "autoCommiter";
 const USER = "j-byron";
 const gitHubUrl = `https://github.com/${USER}/${REPO}`;
 
-const git = simpleGit().env({
+const git = simpleGit(process.cwd()).env({
   GIT_ASKPASS: "echo",
   GIT_PASSWORD: process.env.GIT_PAT,
 });
@@ -27,7 +27,7 @@ git
 const autoCommitFunction = async (req, res) => {
   try {
     const v = await git.version();
-    console.log(`using git version ${v}`);
+    console.log(`using git version ${v} in ${process.cwd()}`);
   } catch (err) {
     res.status(500).send(`Git not available, ${error}`);
     return;

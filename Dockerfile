@@ -5,7 +5,7 @@ FROM node:16
 RUN apt-get update && apt-get install -y git
 
 # Set the working directory inside the container
-WORKDIR /
+WORKDIR /app
 
 # Copy your package.json and package-lock.json (if it exists) into the container
 COPY package*.json ./

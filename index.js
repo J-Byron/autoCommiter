@@ -44,7 +44,6 @@ const autoCommitFunction = async (req, res) => {
 
   if (commitCount === 0) {
     console.log("No commits scheduled for today.");
-    res.status(200).send();
     return;
   }
 
@@ -61,13 +60,15 @@ const autoCommitFunction = async (req, res) => {
       await git
         .add(filePath)
         .commit(commitMessage)
-        .push(["-u", "origin", "main"], () =>
-          res.status(200).send("Changes committed and pushed successfully!")
-        );
+        .push(["-u", "origin", "main"], () => {
+          console.log("Pushed sucessfully!");
+        });
     }
   } catch (error) {
     res.status(500).send(`Failed to update readme.md: ${error.message}`);
   }
+
+  res.status(200).send("Changes committed and pushed successfully!");
 };
 
 // HTTP route to trigger your function

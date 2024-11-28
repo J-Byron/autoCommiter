@@ -14,7 +14,7 @@ ENV GIT_PAT=$GIT_PAT
 RUN echo $GIT_PAT
 
 # Clone the repository using the PAT for authentication
-RUN git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git /app
+RUN bash -c "git clone https://$GIT_PAT@github.com/j-byron/autoCommiter.git /app"
 
 # Set the working directory inside the container
 WORKDIR /app

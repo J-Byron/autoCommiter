@@ -8,6 +8,10 @@ steps:
       - "-c"
       - "docker build -t gcr.io/flash-crawler-400019/autocommiter:v1.0.0 --build-arg GIT_PAT=$$GIT_PAT ."
     secretEnv: ["GIT_PAT"]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "gcr.io/flash-crawler-400019/autocommiter:v1.0.0"
 
 availableSecrets:
   secretManager:

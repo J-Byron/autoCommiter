@@ -3,6 +3,7 @@ options:
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
     args:
       - "build"
       - "-t"
@@ -10,8 +11,7 @@ steps:
       - "--build-arg"
       - "GIT_PAT=$$GIT_PAT"
       - "."
-    secretEnv:
-      - "GIT_PAT"
+    secretEnv: ["GIT_PAT"]
 
 availableSecrets:
   secretManager:

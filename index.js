@@ -24,19 +24,21 @@ git
   .addConfig("user.name", "j-byron")
   .addRemote("origin", gitHubUrl);
 
-// Random number of commits (0–5)
-const commitCount = Math.floor(Math.random() * 6); // Random between 0 and 5
-
-if (commitCount === 0) {
-  console.log("No commits scheduled for today.");
-  process.exit(0); // Exit if no commits are scheduled
-}
-
 const autoCommitFunction = async (req, res) => {
   try {
     await git.version();
   } catch (err) {
     res.status(500).send(`Git not available, ${error}`);
+    return;
+  }
+
+  // Random number of commits (0–5)
+  const commitCount = Math.floor(Math.random() * 6); // Random between 0 and 5
+
+  if (commitCount === 0) {
+    console.log("No commits scheduled for today.");
+    res.status(200).send();
+    return;
   }
 
   try {
@@ -46,17 +48,15 @@ const autoCommitFunction = async (req, res) => {
       const content = `Last updated: ${timestamp}\n`;
       fs.appendFileSync(filePath, content);
 
-      console.log(`Updated README.md at ${timestamp}`);
+      console.log(`Updated readme.md at ${timestamp}`);
 
       // Step 2: Commit and push changes
       await git
         .add(filePath)
         .commit(commitMessage)
         .push(["-u", "origin", "main"], () =>
-          console.log("Changes committed and pushed successfully!")
+          res.status(200).send("Changes committed and pushed successfully!")
         );
-
-      res.status(200).send("Changes committed and pushed successfully!");
     }
   } catch (error) {
     res.status(500).send(`Failed to update readme.md: ${error.message}`);

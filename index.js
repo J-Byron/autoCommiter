@@ -27,6 +27,8 @@ git
   .addConfig("user.name", "j-byron")
   .then(() => git.getRemotes())
   .then((remotes) => {
+    console.log("GOT here!");
+
     if (!remotes.some((remote) => remote.name === "origin")) {
       return git.addRemote("origin", gitHubUrl);
     }

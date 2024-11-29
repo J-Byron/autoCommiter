@@ -25,7 +25,13 @@ const git = simpleGit(process.cwd()).env({
 git
   .addConfig("user.email", "joshhbyron@gmail.com")
   .addConfig("user.name", "j-byron")
-  .addRemote("origin", gitHubUrl);
+  .then(() => git.getRemotes())
+  .then((remotes) => {
+    if (!remotes.some((remote) => remote.name === "origin")) {
+      return git.addRemote("origin", gitHubUrl);
+    }
+  })
+  .catch((err) => console.error("Error setting up git:", err));
 
 const autoCommitFunction = async (req, res) => {
   try {

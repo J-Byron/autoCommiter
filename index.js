@@ -68,6 +68,7 @@ const autoCommitFunction = async (req, res) => {
 
       // Step 2: Commit and push changes
       await git
+        .pull()
         .add(filePath)
         .commit(commitMessage)
         .push(["-u", "origin", "main"], () => {

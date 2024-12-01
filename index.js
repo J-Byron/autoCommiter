@@ -67,11 +67,11 @@ const autoCommitFunction = async (req, res) => {
       console.log(`Updated readme.md at ${timestamp}`);
 
       try {
-        await git.reset("hard");
-        await git.pull();
-        await git.add(filePath);
-        await git.commit(commitMessage);
-        await git.push("origin", "main");
+        await git
+          .pull("origin", "main", { "--rebase": "true" })
+          .add(filePath)
+          .commit(commitMessage)
+          .push("origin", "main");
         console.log("Pushed successfully!");
       } catch (error) {
         console.error(

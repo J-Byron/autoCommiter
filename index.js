@@ -66,14 +66,19 @@ const autoCommitFunction = async (req, res) => {
 
       console.log(`Updated readme.md at ${timestamp}`);
 
-      // Step 2: Commit and push changes
-      await git
-        .pull()
-        .add(filePath)
-        .commit(commitMessage)
-        .push(["-u", "origin", "main"], () => {
-          console.log("Pushed sucessfully!");
-        });
+      try {
+        await git.reset("hard");
+        await git.pull();
+        await git.add(filePath);
+        await git.commit(commitMessage);
+        await git.push("origin", "main");
+        console.log("Pushed successfully!");
+      } catch (error) {
+        console.error(
+          "An error occurred during git operations:",
+          error.message
+        );
+      }
     }
   } catch (error) {
     res.status(500).send(`Failed to update readme.md, new: ${error.message}`);

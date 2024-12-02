@@ -76,7 +76,6 @@ const autoCommitFunction = async (req, res) => {
 
       try {
         await git
-          .stash()
           .pull("origin", "main", { "--rebase": "true" })
           .add(filePath)
           .commit(commitMessage)

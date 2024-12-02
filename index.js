@@ -59,18 +59,24 @@ const autoCommitFunction = async (req, res) => {
 
   try {
     for (let i = 0; i < commitCount; i++) {
-      // Step 1: Modify the README.md file
       const timestamp = new Date().toISOString();
-      const content = `Last updated: ${timestamp}\n`;
+      const formattedDate = timestamp.toLocaleString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      });
+      const content = `Last updated: ${formattedDate}\n`;
       fs.appendFileSync(filePath, content);
 
       console.log(`Updated readme.md at ${timestamp}`);
 
       try {
         await git
-          .stash()
           .pull("origin", "main", { "--rebase": "true" })
-          .stash(["pop"])
           .add(filePath)
           .commit(commitMessage)
           .push("origin", "main");

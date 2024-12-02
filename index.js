@@ -76,16 +76,15 @@ const autoCommitFunction = async (req, res) => {
 
       try {
         await git
+          .stash()
           .pull("origin", "main", { "--rebase": "true" })
           .add(filePath)
           .commit(commitMessage)
           .push("origin", "main");
         console.log("Pushed successfully!");
       } catch (error) {
-        console.error(
-          "An error occurred during git operations:",
-          error.message
-        );
+        res.status(500).send(`"An error occurred during git operations:",
+          ${error.message}`);
       }
     }
   } catch (error) {

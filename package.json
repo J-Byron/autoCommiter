@@ -5,7 +5,7 @@
   "main": "autoCommiter.js",
   "scripts": {
     "start": "node index.js",
-    "deploy": "gcloud builds submit --config=cloudbuild.yaml . && gcloud run deploy autocommiter --image=gcr.io/flash-crawler-400019/autocommiter:latest --platform=managed --region=us-central1"
+    "deploy": "gcloud builds submit --config=cloudbuild.yaml . && gcloud run deploy commiter --image=gcr.io/flash-crawler-400019/commiter:latest --platform=managed --region=us-central1"
   },
   "author": "",
   "license": "ISC",

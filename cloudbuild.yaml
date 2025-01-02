@@ -6,14 +6,14 @@ steps:
     entrypoint: "bash"
     args:
       - "-c"
-      - "docker build -t gcr.io/flash-crawler-400019/autocommiter:latest --build-arg GIT_PAT=$$GIT_PAT ."
+      - "docker build -t gcr.io/flash-crawler-400019/commiter:latest --build-arg GIT_PAT=$$GIT_PAT ."
     secretEnv: ["GIT_PAT"]
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "gcr.io/flash-crawler-400019/autocommiter:latest"
+      - "gcr.io/flash-crawler-400019/commiter:latest"
 
 availableSecrets:
   secretManager:
-    - versionName: projects/624418733426/secrets/GIT_PAT/versions/1
+    - versionName: projects/624418733426/secrets/GIT_PAT/versions/2
       env: "GIT_PAT"
